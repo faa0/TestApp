@@ -6,7 +6,7 @@ import com.fara.testapp.repository.MovieRepo
 
 @Suppress("UNCHECKED_CAST")
 class MovieViewModelProviderFactory(
-    val movieRepo: MovieRepo
+    private val movieRepo: MovieRepo
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

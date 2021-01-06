@@ -1,9 +1,5 @@
 package com.fara.testapp.viewmodel
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,7 +15,7 @@ class MovieViewModel(
 
     val movies: MutableLiveData<Resource<MovieResponse>> = MutableLiveData()
     var moviesPage = 1
-    var movieResponse: MovieResponse? = null
+    private var movieResponse: MovieResponse? = null
 
     fun getMovies(language: String) = viewModelScope.launch {
         movies.postValue(Resource.Loading())
@@ -42,29 +38,5 @@ class MovieViewModel(
             }
         }
         return Resource.Error(response.message())
-    }
-
-    private fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                    return true
-                }
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                    return true
-                }
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                    return true
-                }
-            }
-        }
-        return false
     }
 }

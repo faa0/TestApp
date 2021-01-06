@@ -23,7 +23,7 @@ class RetrofitInstance {
                 .build()
         }
 
-        val api by lazy {
+        val api: MovieApi by lazy {
             retrofit.create(MovieApi::class.java)
         }
     }
