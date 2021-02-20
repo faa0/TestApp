@@ -1,9 +1,13 @@
 package com.fara.testapp.repository
 
-import com.fara.testapp.api.RetrofitInstance
+import androidx.lifecycle.ViewModel
+import com.fara.testapp.api.MovieApi
+import javax.inject.Inject
 
-class MovieRepo {
+class MovieRepo @Inject constructor(
+    private val api: MovieApi
+) : ViewModel() {
 
     suspend fun getMovies(language: String, page: Int) =
-        RetrofitInstance.api.getPopularMovies(language = language, page = page)
+        api.getPopularMovies(language = language, page = page)
 }

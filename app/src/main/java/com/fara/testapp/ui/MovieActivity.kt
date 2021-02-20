@@ -9,22 +9,22 @@ import android.util.Log
 import android.view.View
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fara.testapp.adapter.MovieAdapter
 import com.fara.testapp.databinding.ActivityMovieBinding
-import com.fara.testapp.repository.MovieRepo
 import com.fara.testapp.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.fara.testapp.util.Resource
 import com.fara.testapp.viewmodel.MovieViewModel
-import com.fara.testapp.viewmodel.MovieViewModelProviderFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieBinding
-    private lateinit var viewModel: MovieViewModel
+    private val viewModel: MovieViewModel by viewModels()
     private lateinit var adapter: MovieAdapter
     private var isLoading = false
     private var isLastPage = false
@@ -34,13 +34,6 @@ class MovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val movieRepo = MovieRepo()
-        val viewModelProviderFactory = MovieViewModelProviderFactory(movieRepo)
-        viewModel = ViewModelProvider(
-            this,
-            viewModelProviderFactory
-        )[MovieViewModel::class.java]
 
         setupRecyclerView()
 

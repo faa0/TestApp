@@ -6,11 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.fara.testapp.api.entity.MovieResponse
 import com.fara.testapp.repository.MovieRepo
 import com.fara.testapp.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class MovieViewModel(
-    private val movieRepo: MovieRepo,
+@HiltViewModel
+class MovieViewModel @Inject constructor(
+    private val movieRepo: MovieRepo
 ) : ViewModel() {
 
     val movies: MutableLiveData<Resource<MovieResponse>> = MutableLiveData()

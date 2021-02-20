@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
 import com.fara.testapp.api.entity.Movie
 import com.fara.testapp.databinding.ItemMovieBinding
 import com.fara.testapp.util.Constants.Companion.POSTER_PATH_URL
@@ -38,7 +38,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     override fun onBindViewHolder(holder: MovieAdapter.MovieViewHolder, position: Int) {
         val movie = differ.currentList[position]
         holder.binding.apply {
-            ivMovie.load(POSTER_PATH_URL + movie.poster_path)
+            Glide.with(ivMovie.context).load(POSTER_PATH_URL + movie.poster_path).into(ivMovie)
             tvTitleMovie.text = movie.title
         }
     }
